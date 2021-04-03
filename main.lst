@@ -1,0 +1,139 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               		.section	.rodata.str1.1,"aMS",@progbits,1
+  11               	.LC0:
+  12 0000 4865 6C6C 		.string	"Hello World!"
+  12      6F20 576F 
+  12      726C 6421 
+  12      00
+  13               		.section	.text.startup,"ax",@progbits
+  14               	.global	main
+  16               	main:
+  17               	.LFB7:
+  18               		.file 1 "main.c"
+   1:main.c        **** #include "lcd.h"
+   2:main.c        **** 
+   3:main.c        **** uint8_t chrdata0[8] =
+   4:main.c        **** {
+   5:main.c        **** 	0b00000000,
+   6:main.c        **** 	0b00000000,
+   7:main.c        **** 	0b00001010, /*  X X  */
+   8:main.c        **** 	0b00011111, /* XXXXX */
+   9:main.c        **** 	0b00001110, /*  XXX  */
+  10:main.c        **** 	0b00010100, /*   X   */
+  11:main.c        **** 	0b00000000,
+  12:main.c        **** 	0b00000000
+  13:main.c        **** };
+  14:main.c        **** 
+  15:main.c        **** int main(void)
+  16:main.c        **** {
+  19               		.loc 1 16 1 view -0
+  20               		.cfi_startproc
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	/* stack size = 0 */
+  24               	.L__stack_usage = 0
+  17:main.c        **** 	lcd_init();
+  25               		.loc 1 17 2 view .LVU1
+  26 0000 0E94 0000 		call lcd_init
+  27               	.LVL0:
+  18:main.c        **** 	lcd_custom_char(0, chrdata0);
+  28               		.loc 1 18 2 view .LVU2
+  29 0004 60E0      		ldi r22,lo8(chrdata0)
+  30 0006 70E0      		ldi r23,hi8(chrdata0)
+  31 0008 80E0      		ldi r24,0
+  32 000a 0E94 0000 		call lcd_custom_char
+  33               	.LVL1:
+  19:main.c        **** 
+  20:main.c        **** 	lcd_data('T');
+  34               		.loc 1 20 2 view .LVU3
+  35 000e 84E5      		ldi r24,lo8(84)
+  36 0010 0E94 0000 		call lcd_data
+  37               	.LVL2:
+  21:main.c        **** 	lcd_data('e');
+  38               		.loc 1 21 2 view .LVU4
+  39 0014 85E6      		ldi r24,lo8(101)
+  40 0016 0E94 0000 		call lcd_data
+  41               	.LVL3:
+  22:main.c        **** 	lcd_data('s');
+  42               		.loc 1 22 2 view .LVU5
+  43 001a 83E7      		ldi r24,lo8(115)
+  44 001c 0E94 0000 		call lcd_data
+  45               	.LVL4:
+  23:main.c        **** 	lcd_data('t');
+  46               		.loc 1 23 2 view .LVU6
+  47 0020 84E7      		ldi r24,lo8(116)
+  48 0022 0E94 0000 		call lcd_data
+  49               	.LVL5:
+  24:main.c        **** 
+  25:main.c        **** 	lcd_cursor(0, 1);
+  50               		.loc 1 25 2 view .LVU7
+  51 0026 61E0      		ldi r22,lo8(1)
+  52 0028 80E0      		ldi r24,0
+  53 002a 0E94 0000 		call lcd_cursor
+  54               	.LVL6:
+  26:main.c        **** 	lcd_string((uint8_t *)"Hello World!");
+  55               		.loc 1 26 2 view .LVU8
+  56 002e 80E0      		ldi r24,lo8(.LC0)
+  57 0030 90E0      		ldi r25,hi8(.LC0)
+  58 0032 0E94 0000 		call lcd_string
+  59               	.LVL7:
+  27:main.c        **** 
+  28:main.c        **** 	lcd_cursor(15, 1);
+  60               		.loc 1 28 2 view .LVU9
+  61 0036 61E0      		ldi r22,lo8(1)
+  62 0038 8FE0      		ldi r24,lo8(15)
+  63 003a 0E94 0000 		call lcd_cursor
+  64               	.LVL8:
+  29:main.c        **** 	lcd_data(0);
+  65               		.loc 1 29 2 view .LVU10
+  66 003e 80E0      		ldi r24,0
+  67 0040 0E94 0000 		call lcd_data
+  68               	.LVL9:
+  69               	.L2:
+  30:main.c        **** 
+  31:main.c        **** 	while(1)
+  70               		.loc 1 31 2 discriminator 1 view .LVU11
+  32:main.c        **** 	{
+  33:main.c        **** 		
+  34:main.c        **** 	}
+  71               		.loc 1 34 2 discriminator 1 view .LVU12
+  72 0044 00C0      		rjmp .L2
+  73               		.cfi_endproc
+  74               	.LFE7:
+  76               	.global	chrdata0
+  77               		.data
+  80               	chrdata0:
+  81 0000 00        		.string	""
+  82 0001 00        		.string	""
+  83 0002 0A1F 0E14 		.string	"\n\037\016\024"
+  83      00
+  84 0007 00        		.string	""
+  85               		.text
+  86               	.Letext0:
+  87               		.file 2 "lcd.h"
+  88               		.file 3 "/usr/avr/include/stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccI93he5.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccI93he5.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccI93he5.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccI93he5.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccI93he5.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccI93he5.s:16     .text.startup:0000000000000000 main
+     /tmp/ccI93he5.s:80     .data:0000000000000000 chrdata0
+
+UNDEFINED SYMBOLS
+lcd_init
+lcd_custom_char
+lcd_data
+lcd_cursor
+lcd_string
+__do_copy_data
